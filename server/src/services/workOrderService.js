@@ -1,8 +1,14 @@
 import { NotFoundError } from "../error/notFoundError.js";
 import workOrderRepo from "../repository/workOrderRepository.js";
-
+import departmentRepo from "../repository/departmentRepository.js";
 export default {
   create: async (data) => {
+    const department = await departmentRepo.getById(data.department);
+
+    if (!department) {
+      throw new NotFoundError("Department");
+    }
+
     await workOrderRepo.create(data);
   },
 

@@ -1,9 +1,10 @@
+import { Types } from "mongoose";
 import { ValidationError } from "../error/validationError.js";
 import workOrderService from "../services/workOrderService.js";
-import {httpRespons} from "../utils/httpResponse.js"
+import { httpResponse } from "../utils/httpResponse.js";
 
 export default {
-  create: (req, res) => {
+  create: async (req, res) => {
     const data = req.body;
 
     const requiredFields = [
@@ -16,30 +17,33 @@ export default {
 
     for (const field of requiredFields) {
       if (
-        data[field] === undefined ||
-        data[field] === null ||
-        data[field] === ""
+        data?.[field] === undefined ||
+        data?.[field] === null ||
+        data?.[field] === ""
       ) {
         throw new ValidationError(`${field} is required`);
       }
     }
 
-    if (quantity <= 0) {
+    if (data.quantity <= 0) {
       throw new ValidationError("Quantity must be greater than 0");
     }
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    const due = new Date(dueDate);
+    const due = new Date(data.dueDate);
 
     if (due < today) {
       throw new ValidationError("Due date cannot be in the past");
     }
 
-    await workOrderService.create(data) ;
+    if (!Types.ObjectId.isValid(data.department)) {
+      throw new ValidationError("Invalid Department Id");
+    }
 
-    httpRespons(res , 201 , "Work Order created successfully");
-    
+    await workOrderService.create(data);
+
+    httpResponse(res, 201, "Work Order created successfully");
   },
 };
