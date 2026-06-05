@@ -1,6 +1,7 @@
-export const httpResponse = (res, status, message) => {
+export const httpResponse = (res, status, message, data) => {
   res.status(status).json({
     status: true,
-    message: message,
+    message,
+    data,
   });
 };
