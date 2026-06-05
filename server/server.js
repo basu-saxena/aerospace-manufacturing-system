@@ -1,3 +1,4 @@
 import app from "./src/app.js";
+import { config } from "./src/configs/config.js";
 
-app.listen(8000, () => console.log("server is running"));
+app.listen(config.PORT, () => console.log("server is running"));
