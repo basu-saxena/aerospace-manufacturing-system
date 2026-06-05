@@ -61,4 +61,43 @@ export default {
     const data = await workOrderService.getById(id);
     httpResponse(res, 200, "Work Order fetched successfully", data);
   },
+
+  updateStatus: async (req, res) => {
+    const id = req.params?.id;
+    if (!id || !Types.ObjectId.isValid(id)) {
+      throw new ValidationError("Invalid workOrder Id");
+    }
+
+    const data = req.body;
+
+    if (data?.status === undefined) {
+      throw new ValidationError("Status is required");
+    }
+
+    if (
+      data?.status != "created" &&
+      data?.status != "assigned" &&
+      data?.status != "in_progress" &&
+      data?.status != "completed" &&
+      data?.status != "cancelled"
+    ) {
+      throw new ValidationError(
+        "Status must be [created , assigned , in_progress , completed , cancelled] ",
+      );
+    }
+
+    await workOrderService.updateStatus(id, data.status);
+    httpResponse(res, 200, "Status updated successfully");
+  },
+
+  delete: async (req, res) => {
+    const id = req.params.id;
+
+    if (!id || !Types.ObjectId.isValid(id)) {
+      throw new ValidationError("Invalid workOrder Id");
+    }
+
+    await workOrderService.delete(id);
+    httpResponse(res, 200, "Deleted successfully");
+  },
 };
