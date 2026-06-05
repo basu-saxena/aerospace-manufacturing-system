@@ -10,8 +10,8 @@ export default {
     return data;
   },
 
-  update: async (id, data) => {
-    await WorkOrder.findByIdAndUpdate(id, data);
+  updateStatus: async (id, status) => {
+    await WorkOrder.findByIdAndUpdate(id, { $set: { status } });
   },
 
   getById: async (id) => {
