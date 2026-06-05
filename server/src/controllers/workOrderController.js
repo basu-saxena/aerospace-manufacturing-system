@@ -46,4 +46,19 @@ export default {
 
     httpResponse(res, 201, "Work Order created successfully");
   },
+
+  getAll: async (req, res) => {
+    const data = await workOrderService.getAll();
+    httpResponse(res, 200, "Work Orders fetched successfully", data);
+  },
+
+  getById: async (req, res) => {
+    const id = req.params?.id;
+    if (!id || !Types.ObjectId.isValid(id)) {
+      throw new ValidationError("Invalid workOrder Id");
+    }
+
+    const data = await workOrderService.getById(id);
+    httpResponse(res, 200, "Work Order fetched successfully", data);
+  },
 };

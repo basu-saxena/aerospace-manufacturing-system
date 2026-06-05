@@ -6,7 +6,9 @@ export default {
   },
 
   getAll: async () => {
-    const data = await WorkOrder.find();
+    const data = await WorkOrder.find()
+      .populate("department", "name -_id")
+      .sort({ createdAt: -1 });
     return data;
   },
 
@@ -15,7 +17,10 @@ export default {
   },
 
   getById: async (id) => {
-    const data = await WorkOrder.findById(id);
+    const data = await WorkOrder.findById(id).populate(
+      "department",
+      "name -_id",
+    );
     return data;
   },
 
