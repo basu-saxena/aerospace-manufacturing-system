@@ -9,7 +9,6 @@ const workOrderSchema = new Schema(
     partNumber: {
       type: String,
       required: true,
-      unique: true,
     },
     quantity: {
       type: Number,
@@ -23,7 +22,7 @@ const workOrderSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ["created", "assigned", "in_progress", "completed", "rejected"],
+      enum: ["created", "assigned", "in_progress", "completed", "cancelled"],
       default: "created",
     },
     dueDate: {
