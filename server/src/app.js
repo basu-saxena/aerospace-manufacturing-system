@@ -3,6 +3,7 @@ import cors from "cors";
 import { connectDb } from "./configs/db.js";
 import { config } from "./configs/config.js";
 import { httpError } from "./utils/httpError.js";
+import workOrderRoutes from "./routes/workOrderRoute.js";
 
 const app = express();
 
@@ -15,6 +16,8 @@ app.use(
     origin: config.ALLOWED_ORIGINS,
   }),
 );
+
+app.use("/api/workOrder", workOrderRoutes);
 
 app.use((req, res, next) => {
   httpError(res, 404, "Route not found");
