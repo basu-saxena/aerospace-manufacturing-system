@@ -4,4 +4,4 @@ const router = Router();
 
 router.get("/", departmentController.getAll);
 
-export { router };
+export default router;

@@ -1,4 +1,4 @@
-import departmentRepository from "../repository/departmentRepository";
+import departmentRepository from "../repository/departmentRepository.js";
 
 export default {
   getAll: async () => {

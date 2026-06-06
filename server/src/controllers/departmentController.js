@@ -1,5 +1,5 @@
 import departmentService from "../services/departmentService.js";
-import { httpResponse } from "../utils/httpResponse";
+import { httpResponse } from "../utils/httpResponse.js";
 
 export default {
   getAll: async (req, res) => {
