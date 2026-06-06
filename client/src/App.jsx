@@ -1,11 +1,13 @@
 import React from "react";
 import { Button } from "./components/ui/button";
+import { BrowserRouter } from "react-router-dom";
+import AppRoutes from "./AppRoutes";
 
 const App = () => {
   return (
-    <div>
-      <Button variant="outline"> Click Me</Button>
-    </div>
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   );
 };
 
