@@ -65,7 +65,7 @@ export function Sidebar({ open, setOpen }) {
           <ul>
             {options.map((item, idx) => (
               <li onClick={() => changeSelection(idx)} key={idx}>
-                <div className="p-5 text-lg hover:bg-blue-500 hover:text-white rounded-md transition-all duration-300">
+                <div className="p-5 text-lg hover:bg-purple-400 hover:text-white rounded-md transition-all duration-300">
                   {item}
                 </div>
               </li>
