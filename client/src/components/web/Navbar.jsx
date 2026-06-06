@@ -5,7 +5,7 @@ import { Menu } from "lucide-react";
 
 const Navbar = ({ setOpen }) => {
   return (
-    <nav className="p-5 flex ">
+    <nav className="p-5 flex shadow-md ">
       <div className="flex gap-2 items-center">
         <Button
           variant="ghost"

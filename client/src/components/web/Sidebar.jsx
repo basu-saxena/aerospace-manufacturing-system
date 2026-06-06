@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/drawer";
 import { X } from "lucide-react";
 
+import { useNavigate } from "react-router-dom";
+
 export function Sidebar({ open, setOpen }) {
   const options = [
     "Dashboard",
@@ -19,6 +21,31 @@ export function Sidebar({ open, setOpen }) {
     "Update Status",
     "Delete Work Order",
   ];
+
+  const navigate = useNavigate();
+  const changeSelection = (idx) => {
+    switch (idx) {
+      case 0:
+        navigate("/");
+        break;
+      case 1:
+        navigate("/work-orders");
+        break;
+      case 2:
+        navigate("/work-orders/create");
+        break;
+      case 3:
+        navigate("/work-orders/update");
+        break;
+      case 4:
+        navigate("/work-orders/delete");
+        break;
+      default:
+        navigate("/");
+        break;
+    }
+  };
+
   return (
     <div className="flex flex-wrap gap-2">
       <Drawer direction="left" open={open}>
@@ -36,8 +63,8 @@ export function Sidebar({ open, setOpen }) {
             <img className="h-20" src="/logo.png" alt="aksi" />
           </div>
           <ul>
-            {options.map((item, id) => (
-              <li key={id}>
+            {options.map((item, idx) => (
+              <li onClick={() => changeSelection(idx)} key={idx}>
                 <div className="p-5 text-lg hover:bg-blue-500 hover:text-white rounded-md transition-all duration-300">
                   {item}
                 </div>
