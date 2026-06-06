@@ -42,7 +42,10 @@ export default {
       throw new ValidationError("Invalid Department Id");
     }
 
-    await workOrderService.create(data);
+    const drawings = req.files?.drawings;
+    const documents = req.files?.documents;
+
+    await workOrderService.create(data, drawings, documents);
 
     httpResponse(res, 201, "Work Order created successfully");
   },

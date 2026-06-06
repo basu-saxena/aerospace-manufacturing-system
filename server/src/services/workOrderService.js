@@ -1,15 +1,34 @@
 import { NotFoundError } from "../error/notFoundError.js";
 import workOrderRepo from "../repository/workOrderRepository.js";
 import departmentRepo from "../repository/departmentRepository.js";
+import { uploadFile } from "../utils/uploadFile.js";
+import documentRepository from "../repository/documentRepository.js";
+
 export default {
-  create: async (data) => {
+  create: async (data, drawings, documents) => {
     const department = await departmentRepo.getById(data.department);
 
     if (!department) {
       throw new NotFoundError("Department");
     }
 
-    await workOrderRepo.create(data);
+    const newOrder = await workOrderRepo.create(data);
+
+    if (drawings) {
+      const result = await Promise.all(
+        drawings.map((drw) => uploadFile(drw.buffer)),
+      );
+
+      await documentRepository.uploadDrawing(newOrder._id, result);
+    }
+
+    if (documents) {
+      const result = await Promise.all(
+        documents.map((doc) => uploadFile(doc.buffer)),
+      );
+
+      await documentRepository.uploadDocuments(newOrder._id, result);
+    }
   },
 
   getAll: async (data) => {

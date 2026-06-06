@@ -10,7 +10,10 @@ const documentSchema = new Schema(
 
     documents: {
       type: [String],
-      required: true,
+    },
+
+    drawings: {
+      type: [String],
     },
   },
   {

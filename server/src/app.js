@@ -16,6 +16,11 @@ connectDb();
 
 app.use(express.json());
 app.use(
+  express.urlencoded({
+    extended: true,
+  }),
+);
+app.use(
   cors({
     origin: config.ALLOWED_ORIGINS,
   }),
@@ -28,11 +33,11 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  console.error(err);
+  console.log(err);
   if (err instanceof AppError) {
     httpError(res, err.status, err.message);
   }
-  httpError(res, 500, "Internal server error");
+  httpError(res, 500, err.message);
 });
 
 export default app;

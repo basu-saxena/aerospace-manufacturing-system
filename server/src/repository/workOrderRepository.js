@@ -1,15 +1,64 @@
+import { Types } from "mongoose";
 import WorkOrder from "../models/workOrder.js";
 
 export default {
   create: async (data) => {
-    await WorkOrder.create(data);
+    const order = await WorkOrder.create(data);
+    return order;
   },
 
   getAll: async () => {
-    const data = await WorkOrder.find()
-      .populate("department", "name -_id")
-      .sort({ createdAt: -1 });
-    return data;
+    const orders = await WorkOrder.aggregate([
+      {
+        $lookup: {
+          from: "departments",
+          localField: "department",
+          foreignField: "_id",
+          as: "department",
+          pipeline: [
+            {
+              $project: {
+                _id: 0,
+                name: 1,
+              },
+            },
+          ],
+        },
+      },
+      {
+        $lookup: {
+          from: "documents",
+          localField: "_id",
+          foreignField: "orderId",
+          as: "documents",
+          pipeline: [
+            {
+              $project: {
+                _id: 0,
+                drawings: 1,
+                documents: 1,
+              },
+            },
+          ],
+        },
+      },
+      {
+        $set: {
+          department: {
+            $first: "$department",
+          },
+          documents: {
+            $first: "$documents",
+          },
+        },
+      },
+      {
+        $sort: {
+          createdAt: -1,
+        },
+      },
+    ]);
+    return orders;
   },
 
   updateStatus: async (id, status) => {
@@ -17,11 +66,62 @@ export default {
   },
 
   getById: async (id) => {
-    const data = await WorkOrder.findById(id).populate(
-      "department",
-      "name -_id",
-    );
-    return data;
+    const order = await WorkOrder.aggregate([
+      {
+        $match: {
+          _id: new Types.ObjectId(id),
+        },
+      },
+      {
+        $lookup: {
+          from: "departments",
+          localField: "department",
+          foreignField: "_id",
+          as: "department",
+          pipeline: [
+            {
+              $project: {
+                _id: 0,
+                name: 1,
+              },
+            },
+          ],
+        },
+      },
+      {
+        $lookup: {
+          from: "documents",
+          localField: "_id",
+          foreignField: "orderId",
+          as: "documents",
+          pipeline: [
+            {
+              $project: {
+                _id: 0,
+                drawings: 1,
+                documents: 1,
+              },
+            },
+          ],
+        },
+      },
+      {
+        $set: {
+          department: {
+            $first: "$department",
+          },
+          documents: {
+            $first: "$documents",
+          },
+        },
+      },
+      {
+        $sort: {
+          createdAt: -1,
+        },
+      },
+    ]);
+    return order;
   },
 
   delete: async (id) => {
