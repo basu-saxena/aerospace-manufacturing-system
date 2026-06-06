@@ -22,7 +22,10 @@ const chartConfig = {
 
 export function Chart() {
   return (
-    <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+    <ChartContainer
+      config={chartConfig}
+      className="min-h-[200px] w-full border rounded-md"
+    >
       <BarChart accessibilityLayer data={chartData}>
         <CartesianGrid vertical={false} />
         <XAxis

@@ -1,3 +1,4 @@
+import TableData from "@/components/web/TableData";
 import { Chart } from "@/components/web/Chart";
 import StatusCard from "@/components/web/StatusCard";
 import { CircleCheck, File, Handshake, PackagePlus } from "lucide-react";
@@ -38,9 +39,13 @@ const Home = () => {
           <StatusCard key={i} data={s} />
         ))}
       </div>
-      <div className="max-w-[50%] mx-auto mt-5">
-        <Chart />
-        <div></div>
+      <div className="mt-5 flex gap-3 justify-center flex-wrap">
+        <div className="w-full md:w-[45%]">
+          <Chart />
+        </div>
+        <div className="w-full md:w-[45%]">
+          <TableData />
+        </div>
       </div>
     </div>
   );
