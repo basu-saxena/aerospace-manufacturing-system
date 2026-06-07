@@ -341,8 +341,8 @@ Managers can monitor:
 ## Clone Repository
 
 ```bash
-git clone <repository-url>
-cd aerospace-work-order-system
+git clone https://github.com/basu-saxena/aerospace-manufacturing-system.git
+cd aerospace-manufacturing-system
 ```
 
 ---
@@ -363,7 +363,7 @@ Create a `.env` file:
 PORT=8000
 
 MONGODB_URL=
-
+CLIENT_URL=
 CLOUDINARY_CLOUD_NAME=
 CLOUDINARY_API_KEY=
 CLOUDINARY_SECRET=
