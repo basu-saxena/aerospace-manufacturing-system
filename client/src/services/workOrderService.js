@@ -18,4 +18,8 @@ const updateOrderStatus = async (id, status) => {
   await api.patch(`/work-orders/${id}`, { status });
 };
 
-export { createOrder, fetchAllOrders, updateOrderStatus };
+const deleteOrder = async (id) => {
+  await api.delete(`/work-orders/${id}`);
+};
+
+export { createOrder, fetchAllOrders, updateOrderStatus, deleteOrder };

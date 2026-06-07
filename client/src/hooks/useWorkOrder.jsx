@@ -2,6 +2,7 @@ import { WorkOrderContext } from "@/contexts/workOrderContext";
 import { fetchAllDepartments } from "@/services/departmenService";
 import {
   createOrder,
+  deleteOrder,
   fetchAllOrders,
   updateOrderStatus,
 } from "@/services/workOrderService";
@@ -111,7 +112,33 @@ const useWorkOrder = () => {
     }
   };
 
-  return { departments, createWorkOrder, loading, workOrders, updateStatus };
+  const deleteWorkOrder = async (id) => {
+    try {
+      setLoading(true);
+
+      await deleteOrder(id);
+      await fetchWorkOrders();
+
+      toast.success("Work Order Deleted !");
+    } catch (error) {
+      const msg =
+        error?.response?.data?.message ||
+        error?.message ||
+        "Something went wrong!";
+      toast.error(msg);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    departments,
+    createWorkOrder,
+    loading,
+    workOrders,
+    updateStatus,
+    deleteWorkOrder,
+  };
 };
 
 export default useWorkOrder;

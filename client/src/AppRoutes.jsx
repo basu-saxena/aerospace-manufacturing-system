@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { CreateOrder, Home, UpdateStatus } from "@/pages";
+import { CreateOrder, DeleteOrder, Home, UpdateStatus } from "@/pages";
 import AppLayout from "./AppLayout";
 
 const AppRoutes = () => {
@@ -10,6 +10,7 @@ const AppRoutes = () => {
         <Route index element={<Home />} />
         <Route path="/work-orders/create" element={<CreateOrder />} />
         <Route path="/work-orders/update" element={<UpdateStatus />} />
+        <Route path="/work-orders/delete" element={<DeleteOrder />} />
       </Route>
     </Routes>
   );
