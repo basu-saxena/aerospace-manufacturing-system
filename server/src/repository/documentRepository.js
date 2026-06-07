@@ -42,7 +42,12 @@ const uploadDocuments = async (id, documents) => {
   }
 };
 
+const deleteById = async (id) => {
+  await Document.findByIdAndDelete(id);
+};
+
 export default {
   uploadDocuments,
   uploadDrawing,
+  deleteById,
 };

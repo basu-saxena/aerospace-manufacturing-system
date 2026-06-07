@@ -63,5 +63,6 @@ export default {
     }
 
     await workOrderRepo.delete(id);
+    await documentRepository.deleteById(id);
   },
 };
