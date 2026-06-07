@@ -5,6 +5,7 @@ import { CircleCheck, File, Handshake, PackagePlus } from "lucide-react";
 import React, { Activity } from "react";
 
 import useWorkOrder from "@/hooks/useWorkOrder";
+import Loading from "@/components/web/Loading";
 
 const Home = () => {
   const { workOrders, loading } = useWorkOrder();
@@ -37,7 +38,7 @@ const Home = () => {
     },
   ];
 
-  if (loading) return <div>loading</div>;
+  if (loading) return <Loading />;
   return (
     <div className="p-5">
       <div className="grid grid-cols-2 gap-2 md:gap-6 md:grid-cols-5">
