@@ -97,6 +97,22 @@ export default {
     httpResponse(res, 200, "Status updated successfully");
   },
 
+  updateDepartment: async (req, res) => {
+    const id = req.params?.id;
+    if (!id || !Types.ObjectId.isValid(id)) {
+      throw new ValidationError("Invalid workOrder Id");
+    }
+
+    const data = req.body;
+
+    if (data?.department === undefined) {
+      throw new ValidationError("Department is required");
+    }
+
+    await workOrderService.updateDepartment(id, data.department);
+    httpResponse(res, 200, "Status updated successfully");
+  },
+
   delete: async (req, res) => {
     const id = req.params.id;
 

@@ -16,7 +16,7 @@ const Navbar = ({ setOpen }) => {
         setTitle("Create Work Order");
         break;
       case path.includes("/work-orders/update"):
-        setTitle("Update Status");
+        setTitle("Update Work Order");
         break;
       case path.includes("/work-orders/delete"):
         setTitle("Delete Work Order");

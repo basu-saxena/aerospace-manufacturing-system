@@ -11,9 +11,11 @@ router.post(
   ]),
   workOrderController.create,
 );
+
 router.get("/", workOrderController.getAll);
 router.get("/:id", workOrderController.getById);
 router.patch("/:id", workOrderController.updateStatus);
+router.patch("/:id/update-department", workOrderController.updateDepartment);
 router.delete("/:id", workOrderController.delete);
 
 export default router;

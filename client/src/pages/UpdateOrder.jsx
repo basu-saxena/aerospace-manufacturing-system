@@ -18,10 +18,17 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const UpdateStatus = () => {
-  const { workOrders, loading, updateStatus } = useWorkOrder();
-
-  const statusArray = ["assigned", "in_progress", "completed", "cancelled"];
+const UpdateOrder = () => {
+  const { workOrders, loading, updateStatus, departments, updateDepartment } =
+    useWorkOrder();
+  console.log(workOrders);
+  const statusArray = [
+    "created",
+    "assigned",
+    "in_progress",
+    "completed",
+    "cancelled",
+  ];
 
   if (loading) return <div>Loading...</div>;
   return (
@@ -32,8 +39,8 @@ const UpdateStatus = () => {
             <TableHead>Part Number</TableHead>
             <TableHead>Part Name</TableHead>
             <TableHead>Department</TableHead>
-            <TableHead>Current</TableHead>
-            <TableHead>Update To</TableHead>
+
+            <TableHead>Status</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -41,14 +48,34 @@ const UpdateStatus = () => {
             <TableRow key={item._id}>
               <TableCell className="font-medium">{item.partNumber}</TableCell>
               <TableCell>{item.partName}</TableCell>
-              <TableCell>{item.department.name}</TableCell>
-              <TableCell>{item.status}</TableCell>
               <TableCell>
                 <Select
+                  value={item.department._id}
+                  onValueChange={(value) => updateDepartment(item._id, value)}
+                >
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue />
+                  </SelectTrigger>
+
+                  <SelectContent>
+                    <SelectGroup>
+                      {departments?.map((d) => (
+                        <SelectItem key={d._id} value={d._id}>
+                          {d.name}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </TableCell>
+
+              <TableCell>
+                <Select
+                  value={item.status}
                   onValueChange={(value) => updateStatus(item._id, value)}
                 >
                   <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Status" />
+                    <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
@@ -69,4 +96,4 @@ const UpdateStatus = () => {
   );
 };
 
-export default UpdateStatus;
+export default UpdateOrder;

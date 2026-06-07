@@ -54,6 +54,22 @@ export default {
     await workOrderRepo.updateStatus(id, status);
   },
 
+  updateDepartment: async (id, depId) => {
+    const [order, dep] = await Promise.all([
+      workOrderRepo.getById(id),
+      departmentRepo.getById(depId),
+    ]);
+
+    if (!order) {
+      throw new NotFoundError("Order");
+    }
+    if (!dep) {
+      throw new NotFoundError("Department");
+    }
+
+    await workOrderRepo.updateDepartment(id, depId);
+  },
+
   getById: async (id) => {
     const order = await workOrderRepo.getById(id);
 

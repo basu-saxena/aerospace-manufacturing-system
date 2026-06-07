@@ -5,6 +5,7 @@ import {
   deleteOrder,
   fetchAllOrders,
   ordersByDueDate,
+  updateOrderDepartment,
   updateOrderStatus,
 } from "@/services/workOrderService";
 import React, { useContext, useEffect, useState } from "react";
@@ -115,6 +116,25 @@ const useWorkOrder = () => {
     }
   };
 
+  const updateDepartment = async (id, depId) => {
+    try {
+      setLoading(true);
+
+      await updateOrderDepartment(id, depId);
+      await fetchWorkOrders();
+
+      toast.success("Department updated !");
+    } catch (error) {
+      const msg =
+        error?.response?.data?.message ||
+        error?.message ||
+        "Something went wrong!";
+      toast.error(msg);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const fetchDueOrders = async () => {
     try {
       setLoading(true);
@@ -158,6 +178,7 @@ const useWorkOrder = () => {
     updateStatus,
     deleteWorkOrder,
     dueOrders,
+    updateDepartment,
   };
 };
 

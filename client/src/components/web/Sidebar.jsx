@@ -18,7 +18,7 @@ export function Sidebar({ open, setOpen }) {
     "Dashboard",
     "Work Orders",
     "Create Work Order",
-    "Update Status",
+    "Update Work Order",
     "Delete Work Order",
   ];
 

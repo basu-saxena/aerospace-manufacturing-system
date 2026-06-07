@@ -22,7 +22,6 @@ export default {
           pipeline: [
             {
               $project: {
-                _id: 0,
                 name: 1,
               },
             },
@@ -70,6 +69,10 @@ export default {
     await WorkOrder.findByIdAndUpdate(id, { $set: { status } });
   },
 
+  updateDepartment: async (id, depId) => {
+    await WorkOrder.findByIdAndUpdate(id, { $set: { department: depId } });
+  },
+
   getById: async (id) => {
     const order = await WorkOrder.aggregate([
       {
@@ -86,7 +89,6 @@ export default {
           pipeline: [
             {
               $project: {
-                _id: 0,
                 name: 1,
               },
             },
