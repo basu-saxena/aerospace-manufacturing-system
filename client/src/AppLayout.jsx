@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 
 const AppLayout = () => {
   const [open, setOpen] = useState(false);
+
   return (
     <div>
       <Navbar setOpen={setOpen} />

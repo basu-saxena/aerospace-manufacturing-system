@@ -17,7 +17,11 @@ const useWorkOrder = () => {
           setDepartments(res.data);
         }
       } catch (error) {
-        console.log(error.response.data.message);
+        const msg =
+          error?.response?.data?.message ||
+          error?.message ||
+          "Something went wrong!";
+        console.log(msg);
       } finally {
         setLoading(false);
       }
@@ -36,20 +40,29 @@ const useWorkOrder = () => {
       formData.append("department", data.department);
 
       // documents
-      for (const file of data.documents) {
-        formData.append("documents", file);
+      if (data.documents) {
+        for (const file of data.documents) {
+          formData.append("documents", file);
+        }
       }
 
       // drawings
-      for (const file of data.drawings) {
-        formData.append("drawings", file);
+      if (data.drawings) {
+        for (const file of data.drawings) {
+          formData.append("drawings", file);
+        }
       }
+
       const res = await create(formData);
       if (res.status) {
         toast.success("Work Order created successfully!");
       }
     } catch (error) {
-      toast.error(error.response.data.message || "Something went wrong!");
+      const msg =
+        error?.response?.data?.message ||
+        error?.message ||
+        "Something went wrong!";
+      toast.error(msg);
     } finally {
       setLoading(false);
     }

@@ -62,7 +62,6 @@ const CreateOrder = () => {
             placeholder="Enter part name"
             onChange={handleOnChange}
           />
-          <FieldError></FieldError>
         </Field>
         <Field>
           <FieldLabel htmlFor="partNumber">Part Number</FieldLabel>
@@ -74,7 +73,6 @@ const CreateOrder = () => {
             placeholder="Enter part number"
             onChange={handleOnChange}
           />
-          <FieldError></FieldError>
         </Field>
         <Field>
           <FieldLabel htmlFor="quantity">Quantity</FieldLabel>
@@ -86,7 +84,6 @@ const CreateOrder = () => {
             placeholder="Enter quantity"
             onChange={handleOnChange}
           />
-          <FieldError></FieldError>
         </Field>
         <Field>
           <FieldLabel htmlFor="department">Department</FieldLabel>
@@ -104,7 +101,6 @@ const CreateOrder = () => {
               </SelectGroup>
             </SelectContent>
           </Select>
-          <FieldError></FieldError>
         </Field>
         <Field>
           <FieldLabel htmlFor="dueDate">Due Date</FieldLabel>
@@ -116,7 +112,6 @@ const CreateOrder = () => {
             placeholder="Enter due date"
             onChange={handleOnChange}
           />
-          <FieldError></FieldError>
         </Field>
         <Field>
           <FieldLabel htmlFor="drawings">Engineering Drawings</FieldLabel>
@@ -128,7 +123,6 @@ const CreateOrder = () => {
             multiple
             onChange={(e) => setDrawings(e.target.files || [])}
           />
-          <FieldError></FieldError>
         </Field>
         <Field>
           <FieldLabel htmlFor="documents">Documents</FieldLabel>
@@ -140,11 +134,10 @@ const CreateOrder = () => {
             multiple
             onChange={(e) => setDocuments(e.target.files || [])}
           />
-          <FieldError></FieldError>
         </Field>
 
         <Button
-          className="max-w-1/2 bg-purple-400 hover:bg-purple-300 cursor-pointer focus:scale-95"
+          className="max-w-1/2 bg-purple-500 hover:bg-purple-400 cursor-pointer focus:scale-95"
           type="submit"
           disabled={loading}
         >
