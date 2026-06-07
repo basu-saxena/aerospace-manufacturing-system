@@ -22,4 +22,15 @@ const deleteOrder = async (id) => {
   await api.delete(`/work-orders/${id}`);
 };
 
-export { createOrder, fetchAllOrders, updateOrderStatus, deleteOrder };
+const ordersByDueDate = async () => {
+  const res = await api.get("/work-orders?sortBy=dueDate&sort=asc&limit=5");
+  return res.data;
+};
+
+export {
+  createOrder,
+  fetchAllOrders,
+  updateOrderStatus,
+  deleteOrder,
+  ordersByDueDate,
+};

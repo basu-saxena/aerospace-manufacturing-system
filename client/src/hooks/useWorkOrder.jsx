@@ -4,6 +4,7 @@ import {
   createOrder,
   deleteOrder,
   fetchAllOrders,
+  ordersByDueDate,
   updateOrderStatus,
 } from "@/services/workOrderService";
 import React, { useContext, useEffect, useState } from "react";
@@ -14,6 +15,7 @@ const useWorkOrder = () => {
 
   const [loading, setLoading] = useState(false);
   const { workOrders, setWorkOrders } = useContext(WorkOrderContext);
+  const [dueOrders, setDueOrders] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -35,6 +37,7 @@ const useWorkOrder = () => {
     })();
 
     fetchWorkOrders();
+    fetchDueOrders();
   }, []);
 
   const createWorkOrder = async (data) => {
@@ -112,6 +115,22 @@ const useWorkOrder = () => {
     }
   };
 
+  const fetchDueOrders = async () => {
+    try {
+      setLoading(true);
+      const res = await ordersByDueDate();
+      if (res.status) setDueOrders(res.data);
+    } catch (error) {
+      const msg =
+        error?.response?.data?.message ||
+        error?.message ||
+        "Something went wrong!";
+      toast.error(msg);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const deleteWorkOrder = async (id) => {
     try {
       setLoading(true);
@@ -138,6 +157,7 @@ const useWorkOrder = () => {
     workOrders,
     updateStatus,
     deleteWorkOrder,
+    dueOrders,
   };
 };
 

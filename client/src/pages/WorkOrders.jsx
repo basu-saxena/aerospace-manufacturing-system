@@ -1,17 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
 import useWorkOrder from "@/hooks/useWorkOrder";
-
-import { Button } from "@/components/ui/button";
-import { Trash } from "lucide-react";
 
 const WorkOrders = () => {
   const { workOrders, loading } = useWorkOrder();

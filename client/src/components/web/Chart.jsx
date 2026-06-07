@@ -5,22 +5,41 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-
-const chartData = [
-  { department: "CNC", orders: 80 },
-  { department: "Composite", orders: 200 },
-  { department: "Assembly", orders: 120 },
-  { department: "Quality", orders: 190 },
-];
-
-const chartConfig = {
-  orders: {
-    label: "Orders",
-    color: "#E9D4FF",
-  },
-};
+import useWorkOrder from "@/hooks/useWorkOrder";
 
 export function Chart() {
+  const { workOrders, loading } = useWorkOrder();
+  console.log(workOrders);
+
+  const chartData = [
+    {
+      department: "CNC",
+      orders: workOrders.filter((wo) => wo.department.name === "CNC").length,
+    },
+    {
+      department: "Composite",
+      orders: workOrders.filter((wo) => wo.department.name === "Composite")
+        .length,
+    },
+    {
+      department: "Assembly",
+      orders: workOrders.filter((wo) => wo.department.name === "Assembly")
+        .length,
+    },
+    {
+      department: "Quality",
+      orders: workOrders.filter((wo) => wo.department.name === "Quality")
+        .length,
+    },
+  ];
+
+  const chartConfig = {
+    orders: {
+      label: "Orders",
+      color: "#E9D4FF",
+    },
+  };
+  if (loading) <div>loading</div>;
   return (
     <ChartContainer
       config={chartConfig}

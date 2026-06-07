@@ -7,12 +7,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import useWorkOrder from "@/hooks/useWorkOrder";
 
 import React from "react";
 
 const TableData = () => {
+  const { dueOrders } = useWorkOrder();
   return (
-    <div className="mx-auto w-full md:w-[80%] p-5 mt-5 border rounded-md bg-purple-200 rounded-md">
+    <div className="mx-auto w-full p-5 mt-5 border rounded-md bg-purple-200 rounded-md">
       <h2 className="mb-3 text-lg">Upcoming Due Dates</h2>
       <Table>
         <TableHeader>
@@ -24,12 +26,16 @@ const TableData = () => {
           </TableRow>
         </TableHeader>
         <TableBody className="border rounded-md border-purple-300 ">
-          <TableRow>
-            <TableCell className="font-medium">INV001</TableCell>
-            <TableCell>In Progress</TableCell>
-            <TableCell>CNC</TableCell>
-            <TableCell>3/8/26</TableCell>
-          </TableRow>
+          {dueOrders.map((item) => (
+            <TableRow key={item._id}>
+              <TableCell className="font-medium">{item.partName}</TableCell>
+              <TableCell>{item.status}</TableCell>
+              <TableCell>{item.department.name}</TableCell>
+              <TableCell>
+                {new Date(item.dueDate).toLocaleDateString()}
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </div>
