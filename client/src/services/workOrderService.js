@@ -4,9 +4,18 @@ const api = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_URL,
 });
 
-const create = async (data) => {
+const createOrder = async (data) => {
   const res = await api.post("/work-orders", data);
   return res.data;
 };
 
-export { create };
+const fetchAllOrders = async () => {
+  const orders = await api.get("/work-orders");
+  return orders.data;
+};
+
+const updateOrderStatus = async (id, status) => {
+  await api.patch(`/work-orders/${id}`, { status });
+};
+
+export { createOrder, fetchAllOrders, updateOrderStatus };

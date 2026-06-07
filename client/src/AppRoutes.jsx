@@ -1,8 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { Home } from "@/pages";
+import { CreateOrder, Home, UpdateStatus } from "@/pages";
 import AppLayout from "./AppLayout";
-import CreateOrder from "./pages/CreateOrder";
 
 const AppRoutes = () => {
   return (
@@ -10,6 +9,7 @@ const AppRoutes = () => {
       <Route path="/" element={<AppLayout />}>
         <Route index element={<Home />} />
         <Route path="/work-orders/create" element={<CreateOrder />} />
+        <Route path="/work-orders/update" element={<UpdateStatus />} />
       </Route>
     </Routes>
   );
