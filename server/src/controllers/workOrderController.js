@@ -51,7 +51,11 @@ export default {
   },
 
   getAll: async (req, res) => {
-    const data = await workOrderService.getAll();
+    const sortBy = req.query?.sortBy;
+    const limit = req.query?.limit;
+    const sort = req.query?.sort;
+
+    const data = await workOrderService.getAll(sortBy, limit, sort);
     httpResponse(res, 200, "Work Orders fetched successfully", data);
   },
 

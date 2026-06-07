@@ -7,7 +7,11 @@ export default {
     return order;
   },
 
-  getAll: async () => {
+  getAll: async (sortBy, limit, sort) => {
+    const sortOpt = {
+      [sortBy]: sort === "desc" ? -1 : 1,
+    };
+
     const orders = await WorkOrder.aggregate([
       {
         $lookup: {
@@ -53,9 +57,10 @@ export default {
         },
       },
       {
-        $sort: {
-          createdAt: -1,
-        },
+        $sort: sortOpt,
+      },
+      {
+        $limit: Number(limit),
       },
     ]);
     return orders;

@@ -31,8 +31,17 @@ export default {
     }
   },
 
-  getAll: async (data) => {
-    return await workOrderRepo.getAll();
+  getAll: async (sortBy, limit, sort) => {
+    if (!sortBy) {
+      sortBy = "createdAt";
+    }
+    if (!limit) {
+      limit = 20;
+    }
+    if (!sort) {
+      sort = "desc";
+    }
+    return await workOrderRepo.getAll(sortBy, limit, sort);
   },
 
   updateStatus: async (id, status) => {
