@@ -10,6 +10,7 @@ import {
 } from "@/services/workOrderService";
 import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const useWorkOrder = () => {
   const [departments, setDepartments] = useState([]);
@@ -17,6 +18,8 @@ const useWorkOrder = () => {
   const [loading, setLoading] = useState(false);
   const { workOrders, setWorkOrders } = useContext(WorkOrderContext);
   const [dueOrders, setDueOrders] = useState([]);
+
+  const navigate = useNavigate() ;
 
   useEffect(() => {
     (async () => {
@@ -68,6 +71,7 @@ const useWorkOrder = () => {
 
       const res = await createOrder(formData);
       if (res.status) {
+        navigate("/work-orders")
         toast.success("Work Order created successfully!");
       }
     } catch (error) {
