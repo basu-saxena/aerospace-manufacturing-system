@@ -19,7 +19,7 @@ const DeleteOrder = () => {
 
   if (loading) return <Loading />;
   return (
-    <div className="p-5 max-w-[70%]">
+    <div className="p-5 w-full md:max-w-[70%]">
       <Table className="border border-purple-300">
         <TableHeader>
           <TableRow className="bg-purple-400 hover:bg-purple-400">
