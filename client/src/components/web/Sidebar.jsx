@@ -1,15 +1,4 @@
-import { Button } from "@/components/ui/button";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
-import { X } from "lucide-react";
+import { Drawer, DrawerContent, DrawerHeader } from "@/components/ui/drawer";
 
 import { useNavigate } from "react-router-dom";
 
@@ -27,21 +16,27 @@ export function Sidebar({ open, setOpen }) {
     switch (idx) {
       case 0:
         navigate("/");
+        setOpen(false);
         break;
       case 1:
         navigate("/work-orders");
+        setOpen(false);
         break;
       case 2:
         navigate("/work-orders/create");
+        setOpen(false);
         break;
       case 3:
         navigate("/work-orders/update");
+        setOpen(false);
         break;
       case 4:
         navigate("/work-orders/delete");
+        setOpen(false);
         break;
       default:
         navigate("/");
+        setOpen(false);
         break;
     }
   };

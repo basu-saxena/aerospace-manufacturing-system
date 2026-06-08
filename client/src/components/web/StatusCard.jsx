@@ -1,4 +1,3 @@
-import { File } from "lucide-react";
 import React from "react";
 
 const StatusCard = ({ data }) => {

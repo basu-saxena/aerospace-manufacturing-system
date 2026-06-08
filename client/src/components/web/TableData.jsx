@@ -1,7 +1,6 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -13,6 +12,7 @@ import React from "react";
 
 const TableData = () => {
   const { dueOrders } = useWorkOrder();
+
   return (
     <div className="mx-auto w-full p-5 mt-5 border rounded-md bg-white rounded-md">
       <h2 className="mb-3 text-lg font-semibold text-gray-800">
@@ -32,27 +32,38 @@ const TableData = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {dueOrders.map((item, index) => (
-            <TableRow
-              key={item._id}
-              className={
-                index % 2 === 0
-                  ? "bg-white"
-                  : "bg-purple-100 hover:bg-purple-200"
-              }
-            >
-              <TableCell className="font-medium text-gray-800">
-                {item.partName}
-              </TableCell>
-              <TableCell className="text-gray-800">{item.status}</TableCell>
-              <TableCell className="text-gray-800">
-                {item.department.name}
-              </TableCell>
-              <TableCell className="text-gray-800">
-                {new Date(item.dueDate).toLocaleDateString()}
+          {dueOrders.length > 0 ? (
+            dueOrders.map((item, index) => (
+              <TableRow
+                key={item._id}
+                className={
+                  index % 2 === 0
+                    ? "bg-white"
+                    : "bg-purple-100 hover:bg-purple-200"
+                }
+              >
+                <TableCell className="font-medium text-gray-800">
+                  {item.partName}
+                </TableCell>
+                <TableCell className="text-gray-800">{item.status}</TableCell>
+                <TableCell className="text-gray-800">
+                  {item.department.name}
+                </TableCell>
+                <TableCell className="text-gray-800">
+                  {new Date(item.dueDate).toLocaleDateString()}
+                </TableCell>
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={4} className="h-44 text-center text-lg">
+                <span className="italic">
+                  Looks like you have no work orders !
+                </span>{" "}
+                🤔
               </TableCell>
             </TableRow>
-          ))}
+          )}
         </TableBody>
       </Table>
     </div>

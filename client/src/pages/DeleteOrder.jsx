@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -39,33 +38,44 @@ const DeleteOrder = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {workOrders?.map((item, index) => (
-            <TableRow
-              key={item._id}
-              className={
-                index % 2 === 0
-                  ? "bg-white"
-                  : "bg-purple-100 hover:bg-purple-200"
-              }
-            >
-              <TableCell className="font-medium text-gray-800">
-                {item.partNumber}
-              </TableCell>
-              <TableCell className="text-gray-800">{item.partName}</TableCell>
-              <TableCell className="text-gray-800">
-                {item.department.name}
-              </TableCell>
-              <TableCell className="text-gray-800">{item.status}</TableCell>
-              <TableCell>
-                <Button
-                  onClick={() => deleteWorkOrder(item._id)}
-                  className="bg-red-400 text-white hover:bg-red-500 cursor-pointer"
-                >
-                  <Trash size={5} /> Delete
-                </Button>
+          {workOrders.length > 0 ? (
+            workOrders?.map((item, index) => (
+              <TableRow
+                key={item._id}
+                className={
+                  index % 2 === 0
+                    ? "bg-white"
+                    : "bg-purple-100 hover:bg-purple-200"
+                }
+              >
+                <TableCell className="font-medium text-gray-800">
+                  {item.partNumber}
+                </TableCell>
+                <TableCell className="text-gray-800">{item.partName}</TableCell>
+                <TableCell className="text-gray-800">
+                  {item.department.name}
+                </TableCell>
+                <TableCell className="text-gray-800">{item.status}</TableCell>
+                <TableCell>
+                  <Button
+                    onClick={() => deleteWorkOrder(item._id)}
+                    className="bg-red-400 text-white hover:bg-red-500 cursor-pointer"
+                  >
+                    <Trash size={5} /> Delete
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={5} className="h-44 text-center text-lg">
+                <span className="italic">
+                  Looks like you have no work orders !
+                </span>{" "}
+                🤔
               </TableCell>
             </TableRow>
-          ))}
+          )}
         </TableBody>
       </Table>
     </div>

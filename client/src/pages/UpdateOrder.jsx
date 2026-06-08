@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -51,61 +50,72 @@ const UpdateOrder = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {workOrders?.map((item, index) => (
-            <TableRow
-              key={item._id}
-              className={
-                index % 2 === 0
-                  ? "bg-white"
-                  : "bg-purple-100 hover:bg-purple-200"
-              }
-            >
-              <TableCell className="font-medium text-gray-800">
-                {item.partNumber}
-              </TableCell>
-              <TableCell className="text-gray-800">{item.partName}</TableCell>
-              <TableCell>
-                <Select
-                  value={item.department._id}
-                  onValueChange={(value) => updateDepartment(item._id, value)}
-                >
-                  <SelectTrigger className="w-[180px] bg-white border-purple-300 hover:border-purple-400">
-                    <SelectValue />
-                  </SelectTrigger>
+          {workOrders.length > 0 ? (
+            workOrders?.map((item, index) => (
+              <TableRow
+                key={item._id}
+                className={
+                  index % 2 === 0
+                    ? "bg-white"
+                    : "bg-purple-100 hover:bg-purple-200"
+                }
+              >
+                <TableCell className="font-medium text-gray-800">
+                  {item.partNumber}
+                </TableCell>
+                <TableCell className="text-gray-800">{item.partName}</TableCell>
+                <TableCell>
+                  <Select
+                    value={item.department._id}
+                    onValueChange={(value) => updateDepartment(item._id, value)}
+                  >
+                    <SelectTrigger className="w-[180px] bg-white border-purple-300 hover:border-purple-400">
+                      <SelectValue />
+                    </SelectTrigger>
 
-                  <SelectContent>
-                    <SelectGroup>
-                      {departments?.map((d) => (
-                        <SelectItem key={d._id} value={d._id}>
-                          {d.name}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </TableCell>
+                    <SelectContent>
+                      <SelectGroup>
+                        {departments?.map((d) => (
+                          <SelectItem key={d._id} value={d._id}>
+                            {d.name}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </TableCell>
 
-              <TableCell>
-                <Select
-                  value={item.status}
-                  onValueChange={(value) => updateStatus(item._id, value)}
-                >
-                  <SelectTrigger className="w-[180px] bg-white border-purple-300 hover:border-purple-400">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      {statusArray?.map((s, i) => (
-                        <SelectItem key={i} value={s}>
-                          {s}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
+                <TableCell>
+                  <Select
+                    value={item.status}
+                    onValueChange={(value) => updateStatus(item._id, value)}
+                  >
+                    <SelectTrigger className="w-[180px] bg-white border-purple-300 hover:border-purple-400">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        {statusArray?.map((s, i) => (
+                          <SelectItem key={i} value={s}>
+                            {s}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </TableCell>
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={4} className="h-44 text-center text-lg">
+                <span className="italic">
+                  Looks like you have no work orders !
+                </span>{" "}
+                🤔
               </TableCell>
             </TableRow>
-          ))}
+          )}
         </TableBody>
       </Table>
     </div>
